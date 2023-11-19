@@ -171,11 +171,13 @@ def showResults(database):
             sectors=pd.DataFrame(executeQuery.fetchall())
             sectors.columns=['Sectors']
             listy=[]
-            for i in sectors['Sectors']:
-                temp=i[1:-1].replace('"','')
-                temp2=temp.split(',')
-                for j in temp2:
-                    listy.append(j)
+            for lines in sectors['Sectors']:
+                # print(lines)
+                temp=lines[1:-1].replace("'", '')
+                comp=temp.split(',')
+                # print(comp)
+                for i in comp:
+                    listy.append(i)
             # listy=sectors['Sectors'].explode()
             # sectors=listy.to_list()
             # listy=list(set([a for b in sectors['Sectors'].tolist() for a in b]))
