@@ -6,9 +6,9 @@ import numpy as np
 def connect_to_database():  
     mydb = mysql.connector.connect(
     host = "db4free.net",
-    user = "mshark",
+    user = "mshark17",
     password = "Mostafa23#",
-    database = "wuzzuf900184043",
+    database = "wuzzuf900184043x",
     )
     return mydb
 
@@ -169,8 +169,8 @@ def showResults(database):
             executeQuery.execute(query)
             sectors=pd.DataFrame(executeQuery.fetchall())
             sectors.columns=['Sectors']
-            listy=sectors['Sectors'].explode()
-            result=listy.to_list()
+            # listy=sectors['Sectors'].explode()
+            # sectors=listy.to_list()
             # listy=list(set([a for b in sectors['Sectors'].tolist() for a in b]))
             # listy.extend()
             # sectors=[]
@@ -178,7 +178,7 @@ def showResults(database):
             # # check if exists in unique_list or not
             #     if x not in sectors:
             #         sectors.append(x)
-            st.write(result)
+            st.write(sectors)
         except:
             st.subheader("Error!Unable to complete basic query") 
     elif selection=='the top 5 skills that are in the highest demand':
