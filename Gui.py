@@ -94,10 +94,14 @@ def showResults(database):
         if st.button("Submit"):
             query='''SELECT ID FROM company WHERE company.Name="{}"'''.format(companyName)
             executeQuery = database.cursor()
-            executeQuery.execute(query)
-            companyID=executeQuery.fetchall()
-            st.subheader(query)
+            companyID=executeQuery.execute(query)
             st.subheader(companyID)
+            query='''SELECT * FROM job_posting WHERE job_posting.CompanyID="{}"
+                '''.format(companyID)
+            executeQuery = database.cursor()
+            output=executeQuery.execute(query)
+            st.subheader('Found '+ str(len(output)) + ' Job Postings')
+            st.write(output)
             # companyID=executeQuery
             # query
     elif selection=='The top 5 categories':
