@@ -25,27 +25,26 @@ def register_user(mydb):
     try:
         if st.button("Submit"):
             
-            query= """
-                INSERT INTO user VALUES (\'"""+email+"""\', \'"""+username+"""\', \'"""+gender+ """\', \'"""+dateofbirth+"""\',\'"""+gpa+"""\', \'"""+name+"""\')
-                """
+            # query= """
+            #     INSERT INTO user VALUES (\'"""+email+"""\', \'"""+username+"""\', \'"""+gender+ """\', \'"""+dateofbirth+"""\',\'"""+gpa+"""\', \'"""+name+"""\')
+            #     """
             
-            try:
-                mycursor = mydb.cursor()
-                mycursor.execute(query)
-                mydb.commit()
-                st.subheader('User Added Succesfully!')
-            except:
-                st.subheader('ERROR')
+            # try:
+            #     mycursor = mydb.cursor()
+            #     mycursor.execute(query)
+            #     mydb.commit()
+            #     st.subheader('user Added Succesfully!')
+            # except:
+            #     st.subheader('ERROR')
 
             query= """
                 INSERT INTO user_list_of_skills VALUES (\'"""+listofskills+"""\',\'"""+username+"""\')
                 """
-            
             try:
                 mycursor = mydb.cursor()
                 mycursor.execute(query)
                 mydb.commit()
-                st.subheader('User_list_of_skills Added Succesfully!')
+                st.subheader('user_list_of_skills Added Succesfully!')
             except:
                 st.subheader('ERROR')
     except:
