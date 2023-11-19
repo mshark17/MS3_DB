@@ -187,7 +187,7 @@ def showResults(database):
             # # check if exists in unique_list or not
             #     if x not in sectors:
             #         sectors.append(x)
-            st.write(listy)
+            st.write(listy[851])
         except:
             st.subheader("Error!Unable to complete basic query") 
     elif selection=='the top 5 skills that are in the highest demand':
