@@ -46,7 +46,7 @@ def register_user(database):
         st.subheader('ERROR')
     return 
 
-def appyForJob():
+def appyForJob(database):
     query='''SELECT * FROM job_posting
         '''
     try:
@@ -55,7 +55,7 @@ def appyForJob():
         # database.commit()
         output = pd.DataFrame(executeQuery.fetchall())
         st.subheader('Found '+ str(len(output)) + ' Job Postings')
-        st.write(output[:5])
+        st.write(output)
         # st.subheader('Query Succesful!')
     except:
         st.subheader('ERROR')
@@ -70,6 +70,6 @@ if __name__=="__main__":
     if navi=="Register a user":
         register_user(database)
     elif navi=="Apply for Job":
-        pass
+        appyForJob(database)
     elif navi=="Show Results":
         pass
