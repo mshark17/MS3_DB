@@ -173,12 +173,12 @@ def showResults(database):
             for i in sectors['Sectors']:
                 listy.append(i)
             flat_list = [item for sublist in listy for item in sublist]
-            sectors=[]
-            for x in flat_list:
-            # check if exists in unique_list or not
-                if x not in sectors:
-                    sectors.append(x)
-            st.write(sectors)
+            # sectors=[]
+            # for x in flat_list:
+            # # check if exists in unique_list or not
+            #     if x not in sectors:
+            #         sectors.append(x)
+            st.write(flat_list)
         except:
             st.subheader("Error!Unable to complete basic query") 
     elif selection=='the top 5 skills that are in the highest demand':
