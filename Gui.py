@@ -173,7 +173,9 @@ def showResults(database):
             listy=[]
             for i in sectors['Sectors']:
                 temp=i[1:-1].replace('"','')
-                listy.append(temp.split(','))
+                temp2=temp.split(',')
+                for j in temp2:
+                    listy.append(j)
             # listy=sectors['Sectors'].explode()
             # sectors=listy.to_list()
             # listy=list(set([a for b in sectors['Sectors'].tolist() for a in b]))
