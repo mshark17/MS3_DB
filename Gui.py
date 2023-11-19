@@ -55,6 +55,10 @@ def appyForJob(database):
         # database.commit()
         output = pd.DataFrame(executeQuery.fetchall())
         output.columns = ['ID','CompanyID','Title','Salary','Experience Needed','Education Level','Career Level','Description']
+        output['ID'] = output['ID'].astype(str)
+        output['ID'] = output['ID'].str.replace(',', '')
+        output['CompanyID'] = output['CompanyID'].astype(str)
+        output['CompanyID'] = output['CompanyID'].str.replace(',', '')        
         st.subheader('Found '+ str(len(output)) + ' Job Postings')
         st.write(output)
         st.subheader("In Salary, '-1' means Confidential")
