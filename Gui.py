@@ -72,26 +72,25 @@ def appyForJob(database):
 
 def showResults(database):
     st.subheader("Please Select which of the following results you would like to see")
-    selection=st.selectbox('Select',('Show all the job postings for a given sector','Show all the job postings for a given set of skills'
-                                     'Show the top 5 sectors by number of job posts, and the average salary range for each','Show the top 5 skills that are in the highest demand'
-                                     'Show the top 5 growing startups in Egypt by the amount of vacancies they have compared to their foundation date',
-                                     'Show the top 5 most paying companies in the field in Egypt','Show all the postings for a given company / organization'
-                                     ,'Show the top 5 categories (other than IT/Software Development) that the postings are cross listed under based on the volume of postings'),index=1)
-    if selection=='Show all the job postings for a given sector':
+    selection=st.selectbox('Select',('All the job postings for a given sector','All the job postings for a given set of skills',
+                                     'The top 5 sectors by number of job posts and the average salary','The top 5 skills that are in the highest demand',
+                                     'The top 5 growing startups','The top 5 most paying companies','All the postings for a given company/organization',
+                                     'The top 5 categories'),index=1)
+    if selection=='All the job postings for a given sector':
         pass
-    elif selection=='Show all the job postings for a given set of skills':
+    elif selection=='All the job postings for a given set of skills':
         pass
-    elif selection=='Show the top 5 sectors by number of job posts, and the average salary range for each':
+    elif selection=='The top 5 sectors by number of job posts and the average salary':
         pass
-    elif selection=='Show the top 5 skills that are in the highest demand':
+    elif selection=='the top 5 skills that are in the highest demand':
         pass
-    elif selection=='Show the top 5 growing startups in Egypt by the amount of vacancies they have compared to their foundation date':
+    elif selection=='The top 5 growing startups':
         pass
-    elif selection=='Show the top 5 most paying companies in the field in Egypt':
+    elif selection=='The top 5 most paying companies':
         pass
-    elif selection=='Show all the postings for a given company / organization':
+    elif selection=='All the postings for a given company/organization':
         pass
-    elif selection=='Show the top 5 categories (other than IT/Software Development) that the postings are cross listed under based on the volume of postings':
+    elif selection=='The top 5 categories':
         pass
 
 if __name__=="__main__":
@@ -100,10 +99,10 @@ if __name__=="__main__":
     # Milestone 3 Database Project
     ''')
     st.sidebar.header("Navigation")
-    navi=st.sidebar.selectbox('Choose',  ('Register a user', 'Apply for Job', 'Show Results'), index=1)
+    navi=st.sidebar.selectbox('Choose',  ('Register a user', 'Apply for Job', 'Results'), index=1)
     if navi=="Register a user":
         register_user(database)
     elif navi=="Apply for Job":
         appyForJob(database)
-    elif navi=="Show Results":
+    elif navi=="Results":
         showResults(database)
