@@ -169,9 +169,9 @@ def showResults(database):
             executeQuery.execute(query)
             sectors=pd.DataFrame(executeQuery.fetchall())
             sectors.columns=['Sectors']
-            listy=sectors['Sectors'].explode()
-            sectors=listy.to_list()
-
+            # listy=sectors['Sectors'].explode()
+            # sectors=listy.to_list()
+            listy=list(set([a for b in sectors['Sectors'].tolist() for a in b]))
             # listy.extend()
             # sectors=[]
             # for x in flat_list:
