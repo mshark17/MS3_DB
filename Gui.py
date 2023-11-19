@@ -70,6 +70,30 @@ def appyForJob(database):
     except:
         st.subheader('ERROR')
 
+def showResults(database):
+    st.subheader("Please Select which of the following results you would like to see")
+    selection=st.selectbox('Select',('Show all the job postings for a given sector','Show all the job postings for a given set of skills'
+                                     'Show the top 5 sectors by number of job posts, and the average salary range for each','Show the top 5 skills that are in the highest demand'
+                                     'Show the top 5 growing startups in Egypt by the amount of vacancies they have compared to their foundation date',
+                                     'Show the top 5 most paying companies in the field in Egypt','Show all the postings for a given company / organization'
+                                     ,'Show the top 5 categories (other than IT/Software Development) that the postings are cross listed under based on the volume of postings'),index=1)
+    if selection=='Show all the job postings for a given sector':
+        pass
+    elif selection=='Show all the job postings for a given set of skills':
+        pass
+    elif selection=='Show the top 5 sectors by number of job posts, and the average salary range for each':
+        pass
+    elif selection=='Show the top 5 skills that are in the highest demand':
+        pass
+    elif selection=='Show the top 5 growing startups in Egypt by the amount of vacancies they have compared to their foundation date':
+        pass
+    elif selection=='Show the top 5 most paying companies in the field in Egypt':
+        pass
+    elif selection=='Show all the postings for a given company / organization':
+        pass
+    elif selection=='Show the top 5 categories (other than IT/Software Development) that the postings are cross listed under based on the volume of postings':
+        pass
+
 if __name__=="__main__":
     database=connect_to_database()
     st.write ('''
@@ -82,4 +106,4 @@ if __name__=="__main__":
     elif navi=="Apply for Job":
         appyForJob(database)
     elif navi=="Show Results":
-        pass
+        showResults(database)
