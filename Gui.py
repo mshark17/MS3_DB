@@ -137,7 +137,7 @@ def showResults(database):
                 # st.subheader(companyIDs['ID'][0])
             except:
                 print("Error! Couldn't find companies")
-            st.subheader(len(postIDs))
+            st.subheader(postIDs)
             if len(postIDs)>1:
                 query='''SELECT * FROM job_posting WHERE (job_posting.ID="{}"'''.format(postIDs['ID'][0])
                 for i in postIDs['ID'][1:]:
