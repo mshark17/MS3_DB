@@ -77,8 +77,16 @@ def showResults(database):
                                      'The top 5 growing startups','The top 5 most paying companies','All the postings for a given company/organization',
                                      'The top 5 categories'),index=1)
     if selection=='All the job postings for a given sector':
-        query='''SELECT 
-            '''
+        companySector=st.text_input("Enter Sector:")
+        query='''SELECT ID FROM company_sectors WHERE company_sectors.company_sectors="{}"
+                '''.format(companySector)
+        try:
+            executeQuery = database.cursor()
+            executeQuery.execute(query)
+            companyIDs=executeQuery.fetchall()
+            st.subheader(companyIDs)
+        except:
+            print("Error! Couldn't find companies")
     elif selection=='All the job postings for a given set of skills':
         pass
     elif selection=='The top 5 sectors by number of job posts and the average salary':
