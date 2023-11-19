@@ -91,13 +91,13 @@ def showResults(database):
         pass
     elif selection=='All the postings for a given company/organization':
         companyName=st.text_input("Enter Company/Organization name:")
-        query='''SELECT ID FROM company WHERE company.Name="{}"'''.format(companyName)
-        executeQuery = database.cursor()
-        executeQuery.execute(query)
-        st.subheader("CompanyID: {}".format(executeQuery))
-        # companyID=executeQuery
-        query
-        pass
+        if st.button("Submit"):
+            query='''SELECT ID FROM company WHERE company.Name="{}"'''.format(companyName)
+            executeQuery = database.cursor()
+            executeQuery.execute(query)
+            st.subheader("CompanyID: {}".format(executeQuery))
+            # companyID=executeQuery
+            # query
     elif selection=='The top 5 categories':
         pass
 
