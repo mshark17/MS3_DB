@@ -19,8 +19,8 @@ def register_user(mydb):
     dateofbirth = st.text_input("Enter Date of Birth: YYYY-MM-DD")
     gender = st.text_input("Enter Gender: M or F")
     gpa = st.text_input("Enter GPA:")
-    temp = st.text_input("Enter list of skills (seperate by comma and space): Skill1, Skill2")
-    listofskills = temp.split(", ")
+    listofskills = st.text_input("Enter list of skills (seperate by comma and space): Skill1, Skill2")
+    # listofskills = temp.split(", ")
     
     try:
         if st.button("Submit"):
