@@ -88,10 +88,26 @@ def showResults(database):
                 companyIDs.columns=['ID']
                 companyIDs['ID'] = companyIDs['ID'].astype(str)
                 companyIDs['ID'] = companyIDs['ID'].str.replace(',', '')
-                st.subheader(companyIDs['ID'][0])
+                # st.subheader(companyIDs['ID'][0])
             except:
                 print("Error! Couldn't find companies")
-            
+            listofPosts=pd.DataFrame()
+            listofPosts.columns = ['ID','CompanyID','Title','Salary','Experience Needed','Education Level','Career Level','Description']
+            for i in companyIDs['ID']:
+                query='''SELECT * FROM job_postings WHERE job_posting.CompanyID="{}"'''.format(i)
+                try:
+                    executeQuery = database.cursor()
+                    executeQuery.execute(query)
+                    output=pd.DataFrame(executeQuery.fetchall())
+                    output.columns = ['ID','CompanyID','Title','Salary','Experience Needed','Education Level','Career Level','Description']
+                    output['ID'] = output['ID'].astype(str)
+                    output['ID'] = output['ID'].str.replace(',', '')
+                    output['CompanyID'] = output['CompanyID'].astype(str)
+                    output['CompanyID'] = output['CompanyID'].str.replace(',', '')  
+                except:
+                    print("Error! Couldn't fetch posts from job_posting")
+                listofPosts.append(output)
+            st.write(listofPosts)
     elif selection=='All the job postings for a given set of skills':
         pass
     elif selection=='The top 5 sectors by number of job posts and the average salary':
