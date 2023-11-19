@@ -116,28 +116,28 @@ def showResults(database):
             st.write(output)
     elif selection=='All the job postings for a given set of skills':
         temp=st.text_input("Enter skills sperated by comma followed by a space: Ex. Skill1, Skill2")
-        listOfskills=temp.split(', ')
-        if len(listOfskills>1):
-            query=''' SELECT ID FROM job_posting_required_skills WHERE ( Required_Skills LIKE "%{}%"
-                '''.format(listOfskills[0])
-            for i in listOfskills[1:]:
-                query+= ''' OR Required_Skills LIKE "%{}%'''.format(i)
-            query+=')'
-        else:
-            query='''SELECT ID FROM job_posting_required_skills WHERE ( Required_Skills LIKE "%{}%")'''.format(listOfskills[0])
-        try:
-            executeQuery = database.cursor()
-            executeQuery.execute(query)
-            output=pd.DataFrame(executeQuery.fetchall())
-            output.columns = ['ID','CompanyID','Title','Salary','Experience Needed','Education Level','Career Level','Description']
-            output['ID'] = output['ID'].astype(str)
-            output['ID'] = output['ID'].str.replace(',', '')
-            output['CompanyID'] = output['CompanyID'].astype(str)
-            output['CompanyID'] = output['CompanyID'].str.replace(',', '')  
-            st.subheader("In Salary, '-1' means Confidential")
-        except:
-            print("Error! Couldn't fetch posts from job_posting")
-
+        if st.button("Submit"):
+            listOfskills=temp.split(', ')
+            if len(listOfskills>1):
+                query=''' SELECT ID FROM job_posting_required_skills WHERE ( Required_Skills LIKE "%{}%"
+                    '''.format(listOfskills[0])
+                for i in listOfskills[1:]:
+                    query+= ''' OR Required_Skills LIKE "%{}%'''.format(i)
+                query+=')'
+            else:
+                query='''SELECT ID FROM job_posting_required_skills WHERE ( Required_Skills LIKE "%{}%")'''.format(listOfskills[0])
+            try:
+                executeQuery = database.cursor()
+                executeQuery.execute(query)
+                output=pd.DataFrame(executeQuery.fetchall())
+                output.columns = ['ID','CompanyID','Title','Salary','Experience Needed','Education Level','Career Level','Description']
+                output['ID'] = output['ID'].astype(str)
+                output['ID'] = output['ID'].str.replace(',', '')
+                output['CompanyID'] = output['CompanyID'].astype(str)
+                output['CompanyID'] = output['CompanyID'].str.replace(',', '')  
+                st.subheader("In Salary, '-1' means Confidential")
+            except:
+                print("Error! Couldn't fetch posts from job_posting")
     elif selection=='The top 5 sectors by number of job posts and the average salary':
         pass
     elif selection=='the top 5 skills that are in the highest demand':
