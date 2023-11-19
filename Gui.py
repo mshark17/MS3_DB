@@ -85,9 +85,13 @@ def showResults(database):
                 executeQuery = database.cursor()
                 executeQuery.execute(query)
                 companyIDs=pd.DataFrame(executeQuery.fetchall())
-                st.write(companyIDs)
+                companyIDs.columns=['ID']
+                companyIDs['ID'] = companyIDs['ID'].astype(str)
+                companyIDs['ID'] = companyIDs['ID'].str.replace(',', '')
+                st.subheader(companyIDs[0])
             except:
                 print("Error! Couldn't find companies")
+            
     elif selection=='All the job postings for a given set of skills':
         pass
     elif selection=='The top 5 sectors by number of job posts and the average salary':
