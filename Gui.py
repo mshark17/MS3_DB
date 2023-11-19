@@ -88,7 +88,7 @@ def showResults(database):
                 companyIDs.columns=['ID']
                 companyIDs['ID'] = companyIDs['ID'].astype(str)
                 companyIDs['ID'] = companyIDs['ID'].str.replace(',', '')
-                st.subheader(companyIDs[0])
+                st.subheader(companyIDs['ID'][0])
             except:
                 print("Error! Couldn't find companies")
             
