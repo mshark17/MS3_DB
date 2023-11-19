@@ -92,7 +92,7 @@ def showResults(database):
             except:
                 print("Error! Couldn't find companies")
             listofPosts=pd.DataFrame()
-            listofPosts.columns = ['ID','CompanyID','Title','Salary','Experience Needed','Education Level','Career Level','Description']
+            # listofPosts.columns = ['ID','CompanyID','Title','Salary','Experience Needed','Education Level','Career Level','Description']
             for i in companyIDs['ID']:
                 query='''SELECT * FROM job_postings WHERE job_posting.CompanyID="{}"'''.format(i)
                 try:
