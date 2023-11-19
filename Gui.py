@@ -123,7 +123,7 @@ def showResults(database):
                 query=''' SELECT ID FROM job_posting_required_skills WHERE ( Required_Skills LIKE "%{}%"
                     '''.format(listOfskills[0])
                 for i in listOfskills[1:]:
-                    query+= ''' AND Required_Skills LIKE "%{}%'''.format(i)
+                    query+= ''' AND Required_Skills LIKE "%{}%"'''.format(i)
                 query+=')'
                 st.subheader(query)
             else:
@@ -139,7 +139,7 @@ def showResults(database):
                 # st.subheader(companyIDs['ID'][0])
             except:
                 st.subheader("Error! Couldn't find companies")
-            st.subheader(postIDs)
+            # st.subheader(postIDs)
             if len(postIDs)>1:
                 query='''SELECT * FROM job_posting WHERE (job_posting.ID="{}"'''.format(postIDs['ID'][0])
                 for i in postIDs['ID'][1:]:
