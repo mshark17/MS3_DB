@@ -123,7 +123,7 @@ def showResults(database):
                 query=''' SELECT ID FROM job_posting_required_skills WHERE ( Required_Skills LIKE "%{}%"
                     '''.format(listOfskills[0])
                 for i in listOfskills[1:]:
-                    query+= ''' OR Required_Skills LIKE "%{}%'''.format(i)
+                    query+= ''' AND Required_Skills LIKE "%{}%'''.format(i)
                 query+=')'
             else:
                 query='''SELECT ID FROM job_posting_required_skills WHERE ( Required_Skills LIKE "%{}%")'''.format(listOfskills[0])
