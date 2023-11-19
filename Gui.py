@@ -94,7 +94,7 @@ def showResults(database):
             listofPosts=pd.DataFrame()
             # listofPosts.columns = ['ID','CompanyID','Title','Salary','Experience Needed','Education Level','Career Level','Description']
             for i in companyIDs['ID']:
-                query='''SELECT * FROM job_postings WHERE job_posting.CompanyID="{}"'''.format(i)
+                query='''SELECT * FROM job_posting WHERE job_posting.CompanyID="{}"'''.format(i)
                 try:
                     executeQuery = database.cursor()
                     executeQuery.execute(query)
