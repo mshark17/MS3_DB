@@ -93,17 +93,29 @@ def showResults(database):
         companyName=st.text_input("Enter Company/Organization name:")
         if st.button("Submit"):
             query='''SELECT ID FROM company WHERE company.Name="{}"'''.format(companyName)
-            executeQuery = database.cursor()
-            executeQuery.execute(query)
-            companyID=executeQuery.fetchone()[0]
-            st.subheader(companyID)
+            try:
+                executeQuery = database.cursor()
+                executeQuery.execute(query)
+                companyID=executeQuery.fetchone()[0]
+                # st.subheader(companyID)
+            except:
+                print("Error! Can't find companyID!")
             query='''SELECT * FROM job_posting WHERE job_posting.CompanyID="{}"
                 '''.format(companyID)
-            executeQuery = database.cursor()
-            executeQuery.execute(query)
-            output=executeQuery.fetchall()
-            st.subheader('Found '+ str(len(output)) + ' Job Postings')
-            st.write(output)
+            try:
+                executeQuery = database.cursor()
+                executeQuery.execute(query)
+                output=pd.DataFrame(executeQuery.fetchall())
+                output.columns = ['ID','CompanyID','Title','Salary','Experience Needed','Education Level','Career Level','Description']
+                output['ID'] = output['ID'].astype(str)
+                output['ID'] = output['ID'].str.replace(',', '')
+                output['CompanyID'] = output['CompanyID'].astype(str)
+                output['CompanyID'] = output['CompanyID'].str.replace(',', '')        
+                st.subheader('Found '+ str(len(output)) + ' Job Postings')
+                st.write(output)
+                st.subheader("In Salary, '-1' means Confidential")
+            except:
+                print("Error! Can't find Job Postings!")
             # companyID=executeQuery
             # query
     elif selection=='The top 5 categories':
