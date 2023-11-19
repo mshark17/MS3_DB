@@ -91,23 +91,24 @@ def showResults(database):
                 # st.subheader(companyIDs['ID'][0])
             except:
                 print("Error! Couldn't find companies")
-            listofPosts=pd.DataFrame()
+            # listofPosts=pd.DataFrame()
             # listofPosts.columns = ['ID','CompanyID','Title','Salary','Experience Needed','Education Level','Career Level','Description']
-            for i in companyIDs['ID']:
-                query='''SELECT * FROM job_posting WHERE job_posting.CompanyID="{}"'''.format(i)
-                try:
-                    executeQuery = database.cursor()
-                    executeQuery.execute(query)
-                    output=pd.DataFrame(executeQuery.fetchall())
-                    output.columns = ['ID','CompanyID','Title','Salary','Experience Needed','Education Level','Career Level','Description']
-                    output['ID'] = output['ID'].astype(str)
-                    output['ID'] = output['ID'].str.replace(',', '')
-                    output['CompanyID'] = output['CompanyID'].astype(str)
-                    output['CompanyID'] = output['CompanyID'].str.replace(',', '')  
-                except:
-                    print("Error! Couldn't fetch posts from job_posting")
-                listofPosts.append(output)
-            st.write(listofPosts)
+            query='''SELECT * FROM job_posting WHERE (job_posting.CompanyID="{}"'''.format(companyIDs['ID'][0])
+            for i in companyIDs['ID'][1:]:
+                query+=''' OR job_posting.CompanyID="{}"'''.format(i)
+            query+=')'
+            #     try:
+            #         executeQuery = database.cursor()
+            #         executeQuery.execute(query)
+            #         output=pd.DataFrame(executeQuery.fetchall())
+            #         output.columns = ['ID','CompanyID','Title','Salary','Experience Needed','Education Level','Career Level','Description']
+            #         output['ID'] = output['ID'].astype(str)
+            #         output['ID'] = output['ID'].str.replace(',', '')
+            #         output['CompanyID'] = output['CompanyID'].astype(str)
+            #         output['CompanyID'] = output['CompanyID'].str.replace(',', '')  
+            #     except:
+            #         print("Error! Couldn't fetch posts from job_posting")
+            # st.write(listofPosts)
     elif selection=='All the job postings for a given set of skills':
         pass
     elif selection=='The top 5 sectors by number of job posts and the average salary':
