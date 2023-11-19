@@ -173,7 +173,11 @@ def showResults(database):
             for i in sectors['Sectors']:
                 listy.append(i)
             flat_list = [item for sublist in listy for item in sublist]
-            sectors=flat_list.unique()
+            sectors=[]
+            for x in flat_list:
+            # check if exists in unique_list or not
+                if x not in sectors:
+                    sectors.append(x)
             st.write(sectors)
         except:
             st.subheader("Error!Unable to complete basic query") 
