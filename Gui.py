@@ -109,11 +109,12 @@ def showResults(database):
                 output['ID'] = output['ID'].astype(str)
                 output['ID'] = output['ID'].str.replace(',', '')
                 output['CompanyID'] = output['CompanyID'].astype(str)
-                output['CompanyID'] = output['CompanyID'].str.replace(',', '')  
+                output['CompanyID'] = output['CompanyID'].str.replace(',', '') 
+                st.subheader('Found '+ str(len(output)) + ' Job Postings')
+                st.write(output) 
                 st.subheader("In Salary, '-1' means Confidential")
             except:
                 print("Error! Couldn't fetch posts from job_posting")
-            st.write(output)
     elif selection=='All the job postings for a given set of skills':
         temp=st.text_input("Enter skills sperated by comma followed by a space: Ex. Skill1, Skill2")
         if st.button("Submit"):
@@ -135,6 +136,8 @@ def showResults(database):
                 output['ID'] = output['ID'].str.replace(',', '')
                 output['CompanyID'] = output['CompanyID'].astype(str)
                 output['CompanyID'] = output['CompanyID'].str.replace(',', '')  
+                st.subheader('Found '+ str(len(output)) + ' Job Postings')
+                st.write(output) 
                 st.subheader("In Salary, '-1' means Confidential")
             except:
                 print("Error! Couldn't fetch posts from job_posting")
