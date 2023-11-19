@@ -84,8 +84,8 @@ def showResults(database):
             try:
                 executeQuery = database.cursor()
                 executeQuery.execute(query)
-                companyIDs=executeQuery.fetchall()
-                st.subheader(companyIDs)
+                companyIDs=pd.DataFrame(executeQuery.fetchall())
+                st.write(companyIDs)
             except:
                 print("Error! Couldn't find companies")
     elif selection=='All the job postings for a given set of skills':
