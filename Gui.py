@@ -38,7 +38,7 @@ def register_user(mydb):
             #     st.subheader('ERROR')
 
             query= """
-                INSERT INTO user_list_of_skills VALUES (\'"""+listofskills+"""\',\'"""+username+"""\')
+                INSERT INTO user_list_of_skills (List_Of_Skills,User_Name) VALUES (\'"""+listofskills+"""\',\'"""+username+"""\')
                 """
             try:
                 mycursor = mydb.cursor()
