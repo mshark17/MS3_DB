@@ -125,9 +125,11 @@ def showResults(database):
                 for i in listOfskills[1:]:
                     query+= ''' AND Required_Skills LIKE "%{}%'''.format(i)
                 query+=')'
+                st.subheader(query)
             else:
                 query='''SELECT ID FROM job_posting_required_skills WHERE ( Required_Skills LIKE "%{}%")'''.format(listOfskills[0])
             try:
+                # SELECT ID FROM job_posting_required_skills WHERE ( Required_Skills LIKE "%HTML%" AND Required_Skills LIKE "%Python%");
                 executeQuery = database.cursor()
                 executeQuery.execute(query)
                 postIDs=pd.DataFrame(executeQuery.fetchall())
@@ -136,7 +138,7 @@ def showResults(database):
                 postIDs['ID'] = postIDs['ID'].str.replace(',', '')
                 # st.subheader(companyIDs['ID'][0])
             except:
-                print("Error! Couldn't find companies")
+                st.subheader("Error! Couldn't find companies")
             st.subheader(postIDs)
             if len(postIDs)>1:
                 query='''SELECT * FROM job_posting WHERE (job_posting.ID="{}"'''.format(postIDs['ID'][0])
