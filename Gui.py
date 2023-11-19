@@ -79,7 +79,7 @@ def showResults(database):
     if selection=='All the job postings for a given sector':
         companySector=st.text_input("Enter Sector:")
         if st.button("Submit"):
-            query='''SELECT ID FROM company_sectors WHERE company_sectors.company_sectors="{}"
+            query='''SELECT ID FROM company_sectors WHERE company_sectors LIKE "%{}%"
                     '''.format(companySector)
             try:
                 executeQuery = database.cursor()
