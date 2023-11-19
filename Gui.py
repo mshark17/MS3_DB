@@ -1,6 +1,7 @@
 import streamlit as st
 import mysql.connector
 import pandas as pd
+import numpy as np
 
 def connect_to_database():  
     mydb = mysql.connector.connect(
@@ -90,7 +91,7 @@ def showResults(database):
                 companyIDs['ID'] = companyIDs['ID'].str.replace(',', '')
                 # st.subheader(companyIDs['ID'][0])
             except:
-                print("Error! Couldn't find companies")
+                st.subheader("Error! Couldn't find companies")
             # listofPosts=pd.DataFrame()
             # listofPosts.columns = ['ID','CompanyID','Title','Salary','Experience Needed','Education Level','Career Level','Description']
             if len(companyIDs)>1:
@@ -114,7 +115,7 @@ def showResults(database):
                 st.write(output) 
                 st.subheader("In Salary, '-1' means Confidential")
             except:
-                print("Error! Couldn't fetch posts from job_posting")
+                st.subheader("Error! Couldn't fetch posts from job_posting")
     elif selection=='All the job postings for a given set of skills':
         temp=st.text_input("Enter skills sperated by comma followed by a space: Ex. Skill1, Skill2")
         if st.button("Submit"):
@@ -125,7 +126,7 @@ def showResults(database):
                 for i in listOfskills[1:]:
                     query+= ''' AND Required_Skills LIKE "%{}%"'''.format(i)
                 query+=')'
-                st.subheader(query)
+                # st.subheader(query)
             else:
                 query='''SELECT ID FROM job_posting_required_skills WHERE ( Required_Skills LIKE "%{}%")'''.format(listOfskills[0])
             try:
@@ -160,9 +161,18 @@ def showResults(database):
                 st.write(output) 
                 st.subheader("In Salary, '-1' means Confidential")
             except:
-                print("Error! Couldn't fetch posts from job_posting")
+                st.subheader("Error! Couldn't fetch posts from job_posting")
     elif selection=='The top 5 sectors by number of job posts and the average salary':
-        pass
+        query='''SELECT company_sectors FROM company_sectors'''
+        try:
+            executeQuery = database.cursor()    
+            executeQuery.execute(query)
+            sectors=pd.DataFrame(executeQuery.fetchall())
+            sectors.columns=['Sectors']
+            sectors=sectors['Sectors'].unique()
+            st.write(sectors)
+        except:
+            st.subheader("Error!Unable to complete basic query") 
     elif selection=='the top 5 skills that are in the highest demand':
         pass
     elif selection=='The top 5 growing startups':
@@ -179,7 +189,7 @@ def showResults(database):
                 companyID=executeQuery.fetchone()[0]
                 # st.subheader(companyID)
             except:
-                print("Error! Can't find companyID!")
+                st.subheader("Error! Can't find companyID!")
             query='''SELECT * FROM job_posting WHERE job_posting.CompanyID="{}"
                 '''.format(companyID)
             try:
@@ -195,7 +205,7 @@ def showResults(database):
                 st.write(output)
                 st.subheader("In Salary, '-1' means Confidential")
             except:
-                print("Error! Can't find Job Postings!")
+                st.subheader("Error! Can't find Job Postings!")
             # companyID=executeQuery
             # query
     elif selection=='The top 5 categories':
