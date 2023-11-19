@@ -22,7 +22,7 @@ def register_user(mydb):
     user_name = st.text_input("Enter User Name:")
     gender = st.text_input("Enter Gender: M or F")
     
-    pattern = r'\d{5}-\d{3}-\d{3}'
+    pattern = r'\d{5}-\d{5}-\d{5}'
 
     match = re.match(pattern, user_dob)
 

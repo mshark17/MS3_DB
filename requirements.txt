@@ -1,3 +1,5 @@
 streamlit
 pandas
+re
+datetime
 mysql.connector
