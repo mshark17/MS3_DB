@@ -97,6 +97,7 @@ def showResults(database):
             for i in companyIDs['ID'][1:]:
                 query+=''' OR job_posting.CompanyID="{}"'''.format(i)
             query+=')'
+            st.subheader(query)
             try:
                 executeQuery = database.cursor()
                 executeQuery.execute(query)
