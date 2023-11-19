@@ -54,8 +54,9 @@ def appyForJob():
         executeQuery.execute(query)
         # database.commit()
         output = pd.DataFrame(executeQuery.fetchall())
+        st.subheader('Found '+ str(len(output)) + ' Job Postings')
         st.write(output)
-        st.subheader('Query Succesful!')
+        # st.subheader('Query Succesful!')
     except:
         st.subheader('ERROR')
 
