@@ -93,7 +93,7 @@ def showResults(database):
                 print("Error! Couldn't find companies")
             # listofPosts=pd.DataFrame()
             # listofPosts.columns = ['ID','CompanyID','Title','Salary','Experience Needed','Education Level','Career Level','Description']
-            if len(companyIDs>1):
+            if len(companyIDs)>1:
                 query='''SELECT * FROM job_posting WHERE (job_posting.CompanyID="{}"'''.format(companyIDs['ID'][0])
                 for i in companyIDs['ID'][1:]:
                     query+=''' OR job_posting.CompanyID="{}"'''.format(i)
@@ -118,7 +118,7 @@ def showResults(database):
         temp=st.text_input("Enter skills sperated by comma followed by a space: Ex. Skill1, Skill2")
         if st.button("Submit"):
             listOfskills=temp.split(', ')
-            if len(listOfskills>1):
+            if len(listOfskills)>1:
                 query=''' SELECT ID FROM job_posting_required_skills WHERE ( Required_Skills LIKE "%{}%"
                     '''.format(listOfskills[0])
                 for i in listOfskills[1:]:
