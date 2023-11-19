@@ -17,6 +17,7 @@ def connect_to_database():
 
 def register_user(mydb):
     
+    name=st.text_input("Enter Name: John Doe")
     email = st.text_input("Enter Email:")
     username = st.text_input("Enter User Name:")
     dateofbirth = st.text_input("Enter Date of Birth: YYYY-MM-DD")
