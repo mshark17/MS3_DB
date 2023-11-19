@@ -11,7 +11,7 @@ def connect_to_database():
     )
     return mydb
 
-def register_user(mydb):
+def register_user(database):
     
     name=st.text_input("Enter Name: John Doe")
     email = st.text_input("Enter Email:")
@@ -25,25 +25,25 @@ def register_user(mydb):
     try:
         if st.button("Submit"):
             
-            # query= """
-            #     INSERT INTO user VALUES (\'"""+email+"""\', \'"""+username+"""\', \'"""+gender+ """\', \'"""+dateofbirth+"""\',\'"""+gpa+"""\', \'"""+name+"""\')
-            #     """
+            query= """
+                INSERT INTO user VALUES (\'"""+email+"""\', \'"""+username+"""\', \'"""+gender+ """\', \'"""+dateofbirth+"""\',\'"""+gpa+"""\', \'"""+name+"""\')
+                """
             
-            # try:
-            #     mycursor = mydb.cursor()
-            #     mycursor.execute(query)
-            #     mydb.commit()
-            #     st.subheader('user Added Succesfully!')
-            # except:
-            #     st.subheader('ERROR')
+            try:
+                executeQuery = database.cursor()
+                executeQuery.execute(query)
+                database.commit()
+                st.subheader('user Added Succesfully!')
+            except:
+                st.subheader('ERROR')
 
             query= """
                 INSERT INTO user_list_of_skills (List_Of_Skills,User_Name) VALUES (\'"""+listofskills+"""\',\'"""+username+"""\')
                 """
             try:
-                mycursor = mydb.cursor()
-                mycursor.execute(query)
-                mydb.commit()
+                executeQuery = database.cursor()
+                executeQuery.execute(query)
+                database.commit()
                 st.subheader('user_list_of_skills Added Succesfully!')
             except:
                 st.subheader('ERROR')
@@ -52,4 +52,13 @@ def register_user(mydb):
     return 
 
 if __name__=="__main__":
-    register_user(connect_to_database())
+    database=connect_to_database()
+    st.write ('''
+    # Wuzzuf Database
+    ''')
+
+    st.sidebar.header("What would you like to do?")
+
+    nav=st.sidebar.selectbox('Choose',  ('Register a user', 'Apply for Job', 'Show Results'), index=1)
+    if nav=="Register a user":
+        register_user(database)
