@@ -169,9 +169,8 @@ def showResults(database):
             executeQuery.execute(query)
             sectors=pd.DataFrame(executeQuery.fetchall())
             sectors.columns=['Sectors']
-            listy=[]
-            for i in sectors['Sectors']:
-                listy.extend(i)
+            listy=sectors['Sectors'].explode()
+            sectors=listy.to_list()
 
             # listy.extend()
             # sectors=[]
@@ -179,7 +178,7 @@ def showResults(database):
             # # check if exists in unique_list or not
             #     if x not in sectors:
             #         sectors.append(x)
-            st.write(sectors['Sectors'])
+            st.write(sectors)
         except:
             st.subheader("Error!Unable to complete basic query") 
     elif selection=='the top 5 skills that are in the highest demand':
