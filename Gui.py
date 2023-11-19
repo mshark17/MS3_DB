@@ -130,6 +130,23 @@ def showResults(database):
             try:
                 executeQuery = database.cursor()
                 executeQuery.execute(query)
+                postIDs=pd.DataFrame(executeQuery.fetchall())
+                postIDs.columns=['ID']
+                postIDs['ID'] = postIDs['ID'].astype(str)
+                postIDs['ID'] = postIDs['ID'].str.replace(',', '')
+                # st.subheader(companyIDs['ID'][0])
+            except:
+                print("Error! Couldn't find companies")
+            if len(postIDs)>1:
+                query='''SELECT * FROM job_posting WHERE (job_posting.ID="{}"'''.format(postIDs['ID'][0])
+                for i in postIDs['ID'][1:]:
+                    query+=''' OR job_posting.ID="{}"'''.format(i)
+                query+=')'
+            else:
+                query='''SELECT * FROM job_posting WHERE (job_posting.ID="{}")'''.format(postIDs['ID'][0]) 
+            try:
+                executeQuery = database.cursor()
+                executeQuery.execute(query)
                 output=pd.DataFrame(executeQuery.fetchall())
                 output.columns = ['ID','CompanyID','Title','Salary','Experience Needed','Education Level','Career Level','Description']
                 output['ID'] = output['ID'].astype(str)
