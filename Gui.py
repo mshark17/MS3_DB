@@ -95,7 +95,9 @@ def showResults(database):
             query='''SELECT ID FROM company WHERE company.Name="{}"'''.format(companyName)
             executeQuery = database.cursor()
             executeQuery.execute(query)
-            st.subheader("CompanyID: {}".format(executeQuery))
+            companyID=executeQuery.fetchall()
+            st.subheader(query)
+            st.subheader(companyID)
             # companyID=executeQuery
             # query
     elif selection=='The top 5 categories':
