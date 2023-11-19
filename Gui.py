@@ -17,18 +17,21 @@ def connect_to_database():
 
 def register_user(mydb):
     
-    user_email = st.text_input("Enter User Email:")
-    user_dob = st.text_input("Enter DOB: YYYY-MM-DD")
-    user_name = st.text_input("Enter User Name:")
+    email = st.text_input("Enter Email:")
+    username = st.text_input("Enter User Name:")
+    dateofbirth = st.text_input("Enter Date of Birth: YYYY-MM-DD")
     gender = st.text_input("Enter Gender: M or F")
+    gpa = st.text_input("Enter GPA:")
+    temp = st.text_input("Enter list of skills (seperate by comma and space): Skill1, Skill2")
+    listofskills = temp.split(", ")
     
     pattern = r'\d{5}-\d{5}-\d{5}'
 
-    match = re.match(pattern, user_dob)
+    match = re.match(pattern, dateofbirth)
 
 
     if(match):
-        dob_date = datetime.datetime.strptime(user_dob, '%Y-%m-%d')
+        dob_date = datetime.datetime.strptime(dateofbirth, '%Y-%m-%d')
 
         today = datetime.date.today()
         age = today.year - dob_date.year - ((today.month, today.day) < (dob_date.month, dob_date.day))
@@ -37,7 +40,7 @@ def register_user(mydb):
         if st.button("Submit"):
             
             query= """
-                INSERT INTO user VALUES (\'"""+user_email+"""\', \'"""+user_dob+ """\', \'"""+user_name+"""\',\'"""+str(age)+"""\', \'"""+gender+"""\')
+                INSERT INTO user VALUES (\'"""+email+"""\', \'"""+dateofbirth+ """\', \'"""+username+"""\', \'"""+gender+"""\', \'"""+gpa+"""\', \'"""+listofskills+"""\')
                 """
             
             try:
