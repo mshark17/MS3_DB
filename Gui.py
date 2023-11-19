@@ -12,7 +12,6 @@ def connect_to_database():
     return mydb
 
 def register_user(database):
-    
     name=st.text_input("Enter Name: John Doe")
     email = st.text_input("Enter Email:")
     username = st.text_input("Enter User Name:")
@@ -20,15 +19,11 @@ def register_user(database):
     gender = st.text_input("Enter Gender: M or F")
     gpa = st.text_input("Enter GPA:")
     listofskills = st.text_input("Enter list of skills (seperate by comma and space): Skill1, Skill2")
-    # listofskills = temp.split(", ")
-    
     try:
         if st.button("Submit"):
-            
             query= """
                 INSERT INTO user VALUES (\'"""+email+"""\', \'"""+username+"""\', \'"""+gender+ """\', \'"""+dateofbirth+"""\',\'"""+gpa+"""\', \'"""+name+"""\')
                 """
-            
             try:
                 executeQuery = database.cursor()
                 executeQuery.execute(query)
@@ -51,14 +46,29 @@ def register_user(database):
         st.subheader('ERROR')
     return 
 
+def appyForJob():
+    query='''SELECT * FROM job_posting
+        '''
+    try:
+        executeQuery = database.cursor()
+        executeQuery.execute(query)
+        # database.commit()
+        output = pd.DataFrame(executeQuery.fetchall())
+        st.write(output)
+        st.subheader('Query Succesful!')
+    except:
+        st.subheader('ERROR')
+
 if __name__=="__main__":
     database=connect_to_database()
     st.write ('''
-    # Wuzzuf Database
+    # Milestone 3 Database Project
     ''')
-
-    st.sidebar.header("What would you like to do?")
-
-    nav=st.sidebar.selectbox('Choose',  ('Register a user', 'Apply for Job', 'Show Results'), index=1)
-    if nav=="Register a user":
+    st.sidebar.header("Navigation")
+    navi=st.sidebar.selectbox('Choose',  ('Register a user', 'Apply for Job', 'Show Results'), index=1)
+    if navi=="Register a user":
         register_user(database)
+    elif navi=="Apply for Job":
+        pass
+    elif navi=="Show Results":
+        pass
