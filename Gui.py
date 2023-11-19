@@ -169,7 +169,11 @@ def showResults(database):
             executeQuery.execute(query)
             sectors=pd.DataFrame(executeQuery.fetchall())
             sectors.columns=['Sectors']
-            sectors=sectors['Sectors'].unique()
+            listy=[]
+            for i in sectors['Sectors']:
+                listy.append(i)
+            flat_list = [item for sublist in listy for item in sublist]
+            sectors=flat_list.unique()
             st.write(sectors)
         except:
             st.subheader("Error!Unable to complete basic query") 
