@@ -63,8 +63,8 @@ def appyForJob(database):
         st.subheader('Found '+ str(len(output)) + ' Job Postings')
         st.write(output)
         st.subheader("In Salary, '-1' means Confidential")
-        jobID=st.text_input("Enter ID of the Job you want to apply to: Ex. 10011001")
         username=st.text_input("Enter your username:")
+        jobID=st.text_input("Enter ID of the Job you want to apply to: Ex. 10011001")
         cv=st.file_uploader("Upload CV or Resume")
         if st.button("Submit"):
             st.subheader("You applied to Job:{}".format(jobID))
