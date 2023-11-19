@@ -4,7 +4,7 @@ import pandas as pd
 import datetime
 import re
 
-pattern = r'\d{4}-\d{2}-\d{2}'
+pattern = r'\d{5}-\d{5}-\d{5}'
 
 def connect_to_database():  
     mydb = mysql.connector.connect(
@@ -22,7 +22,7 @@ def register_user(mydb):
     user_name = st.text_input("Enter User Name:")
     gender = st.text_input("Enter Gender: M or F")
     
-    pattern = r'\d{4}-\d{2}-\d{2}'
+    pattern = r'\d{5}-\d{3}-\d{3}'
 
     match = re.match(pattern, user_dob)
 
