@@ -186,8 +186,7 @@ def showResults(database):
         except:
             st.subheader("Error!Unable to complete basic query") 
     elif selection=='The top 5 growing startups':
-        query='''SELECT C.Name AS Company_Name, C.Foundation_Date AS Foundation_Year, COUNT(JP.ID) AS Vacancy_Count FROM company C JOIN job_posting JP 
-            ON C.ID = JP.CompanyID GROUP BY C.Name, C.Foundation_Date ORDER BY (COUNT(JP.ID) / (YEAR(NOW()) - YEAR(C.Foundation_Date) + 1)) DESC LIMIT 5;'''
+        query='''SELECT C.Name AS CompanyName, C.Foundation_Date AS FoundationDate, COUNT(JP.ID) AS VacancyCount FROM company C JOIN job_posting JP ON C.ID = JP.CompanyID WHERE C.Foundation_Date != 'NA' GROUP BY C.Name, C.Foundation_Date ORDER BY VacancyCount DESC LIMIT 5'''
         try:
             executeQuery = database.cursor()    
             executeQuery.execute(query)
@@ -197,7 +196,16 @@ def showResults(database):
         except:
             st.subheader("Error!Unable to complete basic query") 
     elif selection=='The top 5 most paying companies':
-        pass
+        query='''SELECT company.Name, MAX(job_posting.Salary) AS MaxSalary FROM company JOIN job_posting ON company.ID = job_posting.CompanyID
+            GROUP BY company.Name ORDER BY MaxSalary DESC LIMIT 5'''
+        try:
+            executeQuery = database.cursor()    
+            executeQuery.execute(query)
+            output=pd.DataFrame(executeQuery.fetchall())
+            output.columns=['Company Name','Maximum Salary']
+            st.write(output)
+        except:
+            st.subheader("Error!Unable to complete basic query") 
     elif selection=='All the postings for a given company/organization':
         companyName=st.text_input("Enter Company/Organization name:")
         if st.button("Submit"):
