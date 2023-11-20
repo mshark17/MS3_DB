@@ -181,7 +181,7 @@ def showResults(database):
             executeQuery = database.cursor()    
             executeQuery.execute(query)
             output=pd.DataFrame(executeQuery.fetchall())
-            output.columns=['Sector','Number of Posts','Average Salary']
+            output.columns=['Required Skills','Demand']
             st.write(output)
         except:
             st.subheader("Error!Unable to complete basic query") 
