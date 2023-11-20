@@ -236,7 +236,18 @@ def showResults(database):
             # companyID=executeQuery
             # query
     elif selection=='The top 5 categories':
-        pass
+        query='''SELECT Categories, COUNT(ID) AS PostingsCount FROM job_posting_categories WHERE Categories NOT LIKE '%IT/Software Development%'
+            GROUP BY Categories ORDER BY PostingsCount DESC LIMIT 5
+            '''
+        try:
+            executeQuery = database.cursor()    
+            executeQuery.execute(query)
+            output=pd.DataFrame(executeQuery.fetchall())
+            output.columns=['Categories','Number of Posts']
+            st.write(output)
+        except:
+            st.subheader("Error!Unable to complete basic query") 
+        
 
 if __name__=="__main__":
     database=connect_to_database()
