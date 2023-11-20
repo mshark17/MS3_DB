@@ -174,7 +174,7 @@ def showResults(database):
             st.write(output)
         except:
             st.subheader("Error!Unable to complete basic query") 
-    elif selection=='the top 5 skills that are in the highest demand':
+    elif selection=='The top 5 skills that are in the highest demand':
         query='''SELECT Required_Skills, COUNT(*) AS Demand FROM job_posting_required_skills GROUP BY Required_Skills ORDER BY Demand DESC LIMIT 5;
             '''
         try:
