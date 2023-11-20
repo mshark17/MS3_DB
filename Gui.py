@@ -175,7 +175,16 @@ def showResults(database):
         except:
             st.subheader("Error!Unable to complete basic query") 
     elif selection=='the top 5 skills that are in the highest demand':
-        pass
+        query='''SELECT Required_Skills, COUNT(*) AS Demand FROM job_posting_required_skills GROUP BY Required_Skills ORDER BY Demand DESC LIMIT 5;
+            '''
+        try:
+            executeQuery = database.cursor()    
+            executeQuery.execute(query)
+            output=pd.DataFrame(executeQuery.fetchall())
+            output.columns=['Sector','Number of Posts','Average Salary']
+            st.write(output)
+        except:
+            st.subheader("Error!Unable to complete basic query") 
     elif selection=='The top 5 growing startups':
         pass
     elif selection=='The top 5 most paying companies':
