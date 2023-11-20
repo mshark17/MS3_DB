@@ -186,7 +186,16 @@ def showResults(database):
         except:
             st.subheader("Error!Unable to complete basic query") 
     elif selection=='The top 5 growing startups':
-        pass
+        query='''SELECT C.Name AS Company_Name, C.Foundation_Date AS Foundation_Year, COUNT(JP.ID) AS Vacancy_Count FROM company C JOIN job_posting JP 
+            ON C.ID = JP.CompanyID GROUP BY C.Name, C.Foundation_Date ORDER BY (COUNT(JP.ID) / (YEAR(NOW()) - YEAR(C.Foundation_Date) + 1)) DESC LIMIT 5;'''
+        try:
+            executeQuery = database.cursor()    
+            executeQuery.execute(query)
+            output=pd.DataFrame(executeQuery.fetchall())
+            output.columns=['Company Name','Foundation Year','Vacancy']
+            st.write(output)
+        except:
+            st.subheader("Error!Unable to complete basic query") 
     elif selection=='The top 5 most paying companies':
         pass
     elif selection=='All the postings for a given company/organization':
