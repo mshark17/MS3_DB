@@ -164,23 +164,14 @@ def showResults(database):
             except:
                 st.subheader("Error! Couldn't fetch posts from job_posting")
     elif selection=='The top 5 sectors by number of job posts and the average salary':
-        query='''SELECT company_sectors FROM company_sectors'''
+        query='''SELECT CS.company_sectors AS Sector, COUNT(JP.ID) AS JobPostCount, AVG(JP.Salary) AS AverageSalary FROM company_sectors CS
+                JOIN company C ON CS.ID = C.ID LEFT JOIN job_posting JP ON C.ID = JP.CompanyID GROUP BY CS.company_sectors ORDER BY JobPostCount DESC LIMIT 5'''
         try:
             executeQuery = database.cursor()    
             executeQuery.execute(query)
-            sectors=pd.DataFrame(executeQuery.fetchall())
-            sectors.columns=['Sectors']
-            listy=[]
-            for lines in sectors['Sectors']:
-                # print(lines)
-                temp=lines[1:-1].replace("'", '')
-                comp=temp.split(',')
-                # print(comp)
-                for i in comp:
-                    listy.append(i)
-            sectors=list(set(listy))
-
-            st.write(sectors)
+            output=pd.DataFrame(executeQuery.fetchall())
+            output.columns=['Sector','Number of Posts','Average Salary']
+            st.write(output)
         except:
             st.subheader("Error!Unable to complete basic query") 
     elif selection=='the top 5 skills that are in the highest demand':
